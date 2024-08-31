@@ -1,6 +1,7 @@
 var db = require('../models/index');
  var User = db.user;
- const { Sequelize,Op}   = require('sequelize');
+ const { Sequelize,Op,QueryTypes}   = require('sequelize');
+const user = require('../models/user');
 
 var addUser = async (req, res) => {
     const jane = User.build({ firstName: 'Ameen', lastName: 'Usman' });
@@ -64,5 +65,22 @@ var getSetVirtualUser = async (req, res) => {
     res.status(400).json({ errors: messages }); // Ensure a proper response is sent
   }
 };
+const rawQueries = async (req, res) => {
+  const users = await db.sequelize.query('SELECT * FROM `users`', {
+    type: QueryTypes.SELECT,
+    model: User,
+    mapToModel: true
+  });
+  res.status(200).json({ data: users });
+};
 
-module.exports = { addUser,getUsers,getUser,queryUser,finderUser,getSetVirtualUser,validateUser };
+module.exports = 
+{ 
+  addUser,
+  getUsers,
+  getUser,
+  queryUser,
+  finderUser,
+  getSetVirtualUser,
+  validateUser,
+  rawQueries };
