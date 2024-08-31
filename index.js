@@ -23,6 +23,8 @@ app.get('/raw-queries', userController.rawQueries);
 
 app.get('/one-to-one', userController.OneToOneUser);
 
+app.get('/one-to-many', userController.OneToManyUser);
+
 app.get('/', function (req, res) {
     res.send('Hello World')
 })
