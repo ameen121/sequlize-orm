@@ -41,4 +41,28 @@ var getSetVirtualUser = async (req, res) => {
     const data = await User.findAndCountAll();
      res.status(200).json({data: data});
  }
-module.exports = { addUser,getUsers,getUser,queryUser,finderUser,getSetVirtualUser };
+ var validateUser = async (req, res) => {
+  let data = {}; // Changed from const to let
+  const messages = {};
+  try {
+    data = await User.create({
+      firstName: 'faizaj1n',
+      lastName: 'Usman',
+    });  
+    res.status(200).json({ data: data });
+  } catch (e) {
+    console.log(e);
+    let message;
+    e.errors.forEach((error) => {
+      switch (error.validatorKey) {
+        case 'isAlpha':
+          message = error.message;
+          break;
+      }
+      messages[error.path] = message;
+    });
+    res.status(400).json({ errors: messages }); // Ensure a proper response is sent
+  }
+};
+
+module.exports = { addUser,getUsers,getUser,queryUser,finderUser,getSetVirtualUser,validateUser };

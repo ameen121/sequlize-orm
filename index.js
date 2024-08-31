@@ -11,6 +11,7 @@ app.get('/get/user/:id', userController.getUser);
 app.get('/query', userController.queryUser);
 app.get('/finder', userController.finderUser);
 app.get('/get-set-virtual', userController.getSetVirtualUser);
+app.get('/validate-user', userController.validateUser);
 app.get('/', function (req, res) {
     res.send('Hello World')
 })
