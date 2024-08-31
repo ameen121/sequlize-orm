@@ -111,6 +111,25 @@ var OneToManyUser = async (req, res) => {
 
   res.status(200).json({ data: user });
 };
+var ManyToManyUser = async (req, res) => {
+  //  const user = await User.create({firstName: 'Ali', lastName: 'Ahmad'});
+  // if(user && user.id) {
+  //   const contact = await user.createContact({
+  //       permanent_address: 'Abdul Hakim', 
+  //       current_address: 'Khanewal',
+  //     });
+  // }
+  const contact = await Contact.findAll({
+    attributes: ['permanent_address', 'current_address'],
+    include:[{
+      model:User,
+      attributes: ['firstName', 'lastName'],
+    }],
+  });
+
+  res.status(200).json({ data: contact });
+
+}
 
 module.exports = 
 { 
@@ -123,5 +142,6 @@ module.exports =
   validateUser,
   rawQueries,
   OneToOneUser,
-  OneToManyUser
+  OneToManyUser,
+  ManyToManyUser
 };
