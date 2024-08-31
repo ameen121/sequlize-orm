@@ -21,6 +21,8 @@ app.get('/validate-user', userController.validateUser);
 
 app.get('/raw-queries', userController.rawQueries);
 
+app.get('/one-to-one', userController.OneToOneUser);
+
 app.get('/', function (req, res) {
     res.send('Hello World')
 })

@@ -1,7 +1,9 @@
 var db = require('../models/index');
  var User = db.user;
- const { Sequelize,Op,QueryTypes}   = require('sequelize');
+ var Contact = db.contact;
+ const { Sequelize,Op,QueryTypes, Model}   = require('sequelize');
 const user = require('../models/user');
+const contact = require('../models/contact');
 
 var addUser = async (req, res) => {
     const jane = User.build({ firstName: 'Ameen', lastName: 'Usman' });
@@ -73,6 +75,24 @@ const rawQueries = async (req, res) => {
   });
   res.status(200).json({ data: users });
 };
+const OneToOneUser = async (req, res) => {
+  // const user = await User.create({firstName: 'alii', lastName: 'Ahmad'});
+  // if(user && user.id) {
+  //   const contact = await user.createContact({
+  //       permanent_address: 'Lahore', 
+  //       current_address: 'Karachi',
+  //       user_id: user.id
+  //     });
+  // }
+  const user = await User.findAll({
+    attributes: ['firstName', 'lastName'],
+    include:[{
+      model:Contact,
+    attributes: ['permanent_address', 'current_address'],
+    }]
+  });
+  res.status(200).json({ data: user });
+};
 
 module.exports = 
 { 
@@ -83,4 +103,6 @@ module.exports =
   finderUser,
   getSetVirtualUser,
   validateUser,
-  rawQueries };
+  rawQueries,
+  OneToOneUser
+};

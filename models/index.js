@@ -18,8 +18,11 @@ try {
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.contact   = require('./contact')(sequelize, DataTypes, Model)
 db.user      = require('./user')(sequelize, DataTypes, Model)
+db.contact   = require('./contact')(sequelize, DataTypes, Model)
+
+db.user.hasOne(db.contact,{foreignKey: 'user_id'});
+db.contact.belongsTo(db.user);
 //console.log('index'+db)
 db.sequelize.sync({force:false})
 module.exports=db;
