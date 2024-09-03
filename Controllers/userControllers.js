@@ -130,6 +130,15 @@ var ManyToManyUser = async (req, res) => {
   res.status(200).json({ data: contact });
 
 }
+var paranoidUser = async (req,res) => {
+  // var data = await User.destroy({
+  //   where: {
+  //     id: 1,
+  //   },
+  // });
+  var data = await User.restore();
+  res.status(200).json({ data: data }); 
+}
 
 module.exports = 
 { 
@@ -143,5 +152,6 @@ module.exports =
   rawQueries,
   OneToOneUser,
   OneToManyUser,
-  ManyToManyUser
+  ManyToManyUser,
+  paranoidUser
 };

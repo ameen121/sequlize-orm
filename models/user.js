@@ -33,6 +33,8 @@ module.exports = (sequelize, DataTypes, Model) => {
         },
         {
             sequelize,
+            paranoid: true,
+            deletedAt: 'soft_delete',
             //modelName: "User", // Capitalize model name if you want to stick to Sequelize conventions
             tableName: "users", // Make sure this matches your table name in the database
             timestamps: true,   // Include timestamps if you want createdAt and updatedAt fields

@@ -27,6 +27,8 @@ app.get('/one-to-many', userController.OneToManyUser);
 
 app.get('/many-to-many', userController.ManyToManyUser);
 
+app.get('/paranoid', userController.paranoidUser);
+
 app.get('/', function (req, res) {
     res.send('Hello World')
 })
